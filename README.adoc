@@ -1,0 +1,29 @@
+= IncludeFileExtractor
+:author: Thalamos <Andreas Brunnet>
+:adoctor: https://asciidoctor.org/[Asciidoctor]
+
+
+== Description
+It is an extension for {adoctor} that creates a list of included files that can be further processed. The file only contains 
+includes that are actually used within the document. The files as stated with the *include::* command are by default stored in a file called *includes*. 
+
+.Example includes file content
+----
+sampleinclude.adoc
+src/main.c
+----
+
+== Usage
+To use the plugin (or any plugin of {adoctor} in general) the following command has to be issued:
+
+.Registering a plugin to be used by Asciidoctor
+----
+asciidoctor -r include-file-extractor.rb MyDoc.adoc
+----
+
+It is also possible to give the includes file a custom name by adding a attribute definition to the call: 
+
+.Custom includes files name 
+----
+asciidoctor -r includes-file-extractor.rb -a ife_filename=my_file_name MyDoc.adoc
+----
