@@ -1,0 +1,6 @@
+This is my sample include. It is very nice.
+
+.Sample code
+----
+include::src/main.c[]
+----
