@@ -36,6 +36,21 @@ class IncludeFileExtractor < Asciidoctor::Extensions::IncludeProcessor
     end
 end
 
+class FileGenerationToggle < Asciidoctor::Extensions::Postprocessor
+    @@attr_no_file_generation = "ife_no_adoc_output_files"
+    def process doc, output
+        if doc.attributes[@@attr_no_file_generation]
+            exit!
+        end
+
+        output
+    end
+end
+
 Asciidoctor::Extensions.register do 
     include_processor IncludeFileExtractor
+end
+
+Asciidoctor::Extensions.register do
+    postprocessor FileGenerationToggle
 end
