@@ -1,6 +1,7 @@
+require 'asciidoctor'
 require 'asciidoctor/extensions'
 
-class IncludeFileExtractor < Asciidoctor::Extensions::IncludeProcessor
+class IncludeFileProcessor < Asciidoctor::Extensions::IncludeProcessor
     use_dsl
 
     @@new_file = false
@@ -8,7 +9,6 @@ class IncludeFileExtractor < Asciidoctor::Extensions::IncludeProcessor
     @@attr_includes_file_name = "ife_filename"
 
     def process doc, reader, target, attribute
-        
         if doc.attributes[@@attr_includes_file_name]
             unless @@include_file_name == doc.attributes[@@attr_includes_file_name]
                 @@include_file_name = doc.attributes[@@attr_includes_file_name]
@@ -36,21 +36,17 @@ class IncludeFileExtractor < Asciidoctor::Extensions::IncludeProcessor
     end
 end
 
-class FileGenerationToggle < Asciidoctor::Extensions::Postprocessor
-    @@attr_no_file_generation = "ife_no_adoc_output_files"
+class IncludeFilePostprocessor < Asciidoctor::Extensions::Postprocessor
     def process doc, output
-        if doc.attributes[@@attr_no_file_generation]
-            exit!
-        end
-
-        output
+        exit!
     end
 end
 
-Asciidoctor::Extensions.register do 
-    include_processor IncludeFileExtractor
+Asciidoctor::Extensions.register :include_file_processor do 
+    include_processor IncludeFileProcessor
 end
 
-Asciidoctor::Extensions.register do
-    postprocessor FileGenerationToggle
+Asciidoctor::Extensions.register :include_file_postprocessor do
+    postprocessor IncludeFilePostprocessor
 end
+
