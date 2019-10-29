@@ -6,6 +6,7 @@
 == Description
 It is an extension for {adoctor} that creates a list of included files that can be further processed. The file only contains 
 includes that are actually used within the document. The files as stated with the *include::* command are by default stored in a file called *includes*. 
+It has the be noted that by using the extension only the *includes* file will be generated but no output by {adoctor} itself. To generate the documentation files {adoctor} needs to be called without the extension as there is currently no straight forward way to implement the extension in a way that both steps are done in one call.
 
 .Example includes file content
 ----
