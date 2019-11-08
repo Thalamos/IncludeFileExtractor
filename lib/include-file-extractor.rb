@@ -38,7 +38,11 @@ end
 
 class IncludeFilePostprocessor < Asciidoctor::Extensions::Postprocessor
     def process doc, output
-        exit!
+        begin
+            exit 0
+        rescue SystemExit
+            return 0
+        end
     end
 end
 
