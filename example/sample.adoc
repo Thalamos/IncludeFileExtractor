@@ -1,5 +1,14 @@
 = Sample Documentation
 
 == Sample Chapter
+Including adoc files.
 
 include::sampleinclude.adoc[]
+
+== Another Chapter
+Using the lines attribute on source code files.
+
+.Lines attribute sample code
+----
+include::src/foo.c[lines=3..5]
+----

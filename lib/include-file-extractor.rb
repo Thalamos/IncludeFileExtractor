@@ -7,6 +7,8 @@ class IncludeFileProcessor < Asciidoctor::Extensions::IncludeProcessor
     @@new_file = false
     @@include_file_name = "includes"
     @@attr_includes_file_name = "ife_filename"
+    @@attr_nolinesinclude = "ife_nolinesinclude"
+    @@nolinesinclude_tag_attr = "lines"
 
     def process doc, reader, target, attribute
         if doc.attributes[@@attr_includes_file_name]
@@ -22,8 +24,19 @@ class IncludeFileProcessor < Asciidoctor::Extensions::IncludeProcessor
             @@new_file = true
         end
 
-        File.open(@@include_file_name, "a") do |f|
-            f.write target + "\n"
+        hasLinesInclude = false
+
+        attribute.each do |key, val|
+            if key.to_s.start_with?(@@nolinesinclude_tag_attr)
+                hasLinesInclude = true
+                break
+            end
+        end
+
+        unless doc.attributes[@@attr_nolinesinclude] && hasLinesInclude
+            File.open(@@include_file_name, "a") do |f|
+                f.write target + "\n"
+            end
         end
 
         content = IO.readlines target 

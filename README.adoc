@@ -35,4 +35,5 @@ The following options are available for the plugin:
 .Plugin options
 |===
 | -a ife_filename=FILENAME | Specifies the name of the includes files. By default called *includes*
+| -a ife_nolinesinclude    | When this option is used, includes utilizing the _lines_ attribute won't be added to the *includes* file
 |===
